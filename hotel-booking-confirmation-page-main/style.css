@@ -1,0 +1,574 @@
+:root {
+  --bg-cream: #F8F5F0;
+  --sidebar-bg: #F5EFE6;
+  --card-bg: #FFFFFF;
+  --terracotta: #C85A32;
+  --terracotta-dark: #A8421E;
+  --text-dark: #2B2623;
+  --text-muted: #8C827A;
+  --text-light: #B5ACA3;
+  --border-color: #E8E2D9;
+  
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+}
+
+.app-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 280px;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  display: block;
+}
+
+.brand-sub {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: var(--text-dark);
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.badge {
+  background-color: var(--terracotta);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 50%;
+  margin-left: auto;
+}
+
+/* Weather Widget */
+.weather-card {
+  background: #EADBC8;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-label {
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.temp {
+  font-size: 2.5rem;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  margin: 0.2rem 0;
+}
+
+.weather-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.sidebar-footer {
+  font-size: 0.65rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  letter-spacing: 1px;
+}
+
+/* --- MAIN CONTENT --- */
+.main-content {
+  flex: 1;
+  padding: 2.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.status-tag {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 400;
+}
+
+.welcome-title em {
+  font-style: italic;
+  font-family: var(--font-serif);
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-dark);
+}
+
+.btn-primary {
+  background: var(--text-dark);
+  color: white;
+}
+
+/* --- OVERLAPPING CARDS SECTION --- */
+.cards-interactive-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.cards-container {
+  position: relative;
+  width: 100%;
+  max-width: 750px;
+  height: 380px;
+}
+
+.card {
+  position: absolute;
+  width: 380px;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Left Receipt Card */
+.receipt-card {
+  background: white;
+  left: 10%;
+  top: 0;
+  transform: rotate(-6deg);
+  z-index: 1;
+  border: 1px solid var(--border-color);
+}
+
+/* Right Welcome Card */
+.welcome-card {
+  background-color: var(--terracotta);
+  color: white;
+  right: 10%;
+  top: 10px;
+  transform: rotate(4deg);
+  z-index: 2;
+}
+
+/* Hover Effect (Fan out) */
+.cards-container:hover .receipt-card {
+  transform: rotate(-12deg) translateX(-30px);
+}
+
+.cards-container:hover .welcome-card {
+  transform: rotate(8deg) translateX(30px);
+}
+
+.fan-hint {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-light);
+  margin-top: 1.5rem;
+}
+
+/* Card Content Details */
+.card-label {
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.card-label.light {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.receipt-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.receipt-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dates-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.date-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.date-val {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.time-val {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.cost-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.line-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--text-dark);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.total-amount {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.receipt-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1rem;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+/* Orange Host Card styling */
+.host-intro {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 1rem;
+}
+
+.host-name {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-style: italic;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.note-body {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  opacity: 0.95;
+  margin-bottom: 2rem;
+}
+
+.room-info {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+}
+
+.room-label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+.room-name {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+}
+
+/* --- BOTTOM INFO GRID --- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.info-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.badge-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+}
+
+.icon-orange { background: #FDEEE9; color: var(--terracotta); }
+.icon-blue { background: #EBF3FA; color: #2B6CB0; }
+.icon-rose { background: #FDF2F4; color: #C53030; }
+
+.card-number {
+  font-family: var(--font-serif);
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.info-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.info-subtitle {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.info-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Wifi copy box */
+.wifi-box {
+  background: var(--bg-cream);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.wifi-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.wifi-row:last-child { margin-bottom: 0; }
+
+.wifi-label { color: var(--text-light); font-size: 0.65rem; }
+
+.copy-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+/* Mobile Toggle Button (Hidden on Desktop) */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--text-dark);
+}
+
+/* Mobile Breakpoint Styles */
+@media (max-width: 900px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1001;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .main-content {
+    padding: 1.5rem;
+  }
+
+  .cards-container {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+  }
+
+  .cards-container:hover .receipt-card,
+  .cards-container:hover .welcome-card {
+    transform: none !important;
+  }
+
+  .fan-hint {
+    display: none;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Clean Print Styles */
+@media print {
+  .sidebar,
+  .header-actions,
+  .fan-hint,
+  .info-grid,
+  .welcome-card {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+
+  .receipt-card {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    border: 1px solid #000;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
